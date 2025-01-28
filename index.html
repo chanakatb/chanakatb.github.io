@@ -52,6 +52,15 @@
             color: var(--primary-color) !important;
         }
 
+        body.dark-mode nav a {
+            color: #ffffff;
+        }
+
+        body.dark-mode nav a:hover,
+        body.dark-mode nav a.active {
+            color: var(--primary-color) !important;
+        }
+
         nav button {
             background: none;
             border: none;
@@ -64,17 +73,158 @@
             margin-bottom: 1rem;
         }
 
-        .content-box {
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-            padding: 1.5rem;
+        h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            color: var(--text-color);
+        }
+
+        .profile-section {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 2rem;
             margin-bottom: 2rem;
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
+        .profile-image {
+            max-width: 300px;
+            border-radius: 8px;
+        }
+
+        .news-item {
+            margin: 1rem 0;
+        }
+
+        .news-date {
+            font-weight: bold;
+            color: #666;
+        }
+
+        .publication {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .pub-thumbnail {
+            width: 120px;
+            height: 80px;
+            object-fit: cover;
+        }
+
+        .pub-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .button {
+            padding: 0.25rem 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        .education-item,
+        .experience-item {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: start;
+        }
+
+        .year-tag {
+            display: inline-block;
+            background-color: var(--tag-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .section {
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .profile-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .education-item,
+            .experience-item {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .page-header {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
         .cv-download {
+            position: absolute;
+            right: -60px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .content-box {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem auto;
+        }
+
+        #about .content-box {
+            margin-left: 0;
+            margin-right: auto;
+        }
+
+        .dark-mode .content-box {
+            background: #1e1e1e;
+            box-shadow: none;
+            border: 1px solid #ffffff;
+        }
+
+        .cv-download {
+            color: var(--tag-color);
+            transition: color 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -82,13 +232,6 @@
             height: 40px;
             border-radius: 50%;
             background-color: #f0f9f0;
-            color: var(--tag-color);
-            transition: color 0.2s;
-            text-decoration: none;
-        }
-
-        .cv-download:hover {
-            background-color: #e3f5e3;
         }
 
         .cv-icon {
@@ -96,17 +239,39 @@
             height: 24px;
         }
 
-        body.dark-mode .content-box {
-            background: #1e1e1e;
-            border: 1px solid #ffffff;
+        .cv-download:hover {
+            background-color: #e3f5e3;
+            text-decoration: none;
         }
-
+        
         body.dark-mode .cv-download {
             background-color: #2a2a2a;
         }
-
+        
         body.dark-mode .cv-download:hover {
             background-color: #353535;
+        }
+
+        .content-box h2 {
+            margin-top: 0;
+        }
+
+        body.dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        body.dark-mode h2 {
+            color: #ffffff;
+        }
+
+        body.dark-mode .news-date {
+            color: #ffffff;
+        }
+
+        body.dark-mode .button {
+            color: #ffffff;
+            border-color: #404040;
         }
     </style>
 </head>
@@ -115,46 +280,210 @@
         <a onclick="showSection('about')" class="nav-link active">About</a>
         <a onclick="showSection('publications')" class="nav-link">Publications</a>
         <a onclick="showSection('cv')" class="nav-link">CV</a>
-        <button onclick="toggleDarkMode()">🌙</button>
+        <button onclick="toggleDarkMode()" aria-label="Toggle dark mode">🌙</button>
     </nav>
 
     <div id="about" class="section active">
         <h1>Your Name</h1>
         <p>Ph.D. Student at [University Name]</p>
+
+        <div class="profile-section">
+            <div>
+                <p>I am a [year] Ph.D. student in the Department of [Your Department] at 
+                [University Name]. I am advised by <a href="#">[Advisor Name]</a>.</p>
+
+                <p>I work on [Your Research Area]. [Detailed description of your research interests and focus areas].</p>
+
+                <p>Prior to joining [Current University], I received my [Previous Degrees] from [Previous Universities].</p>
+
+                <p>I am looking for [type of position] positions in industry. Please reach out if you think I could be a good fit!</p>
+            </div>
+            <img src="/api/placeholder/300/400" alt="Profile Photo" class="profile-image">
+        </div>
+
+        <div class="about-content">
+            <div class="content-box">
+                <h2>News</h2>
+                <div class="news-item">
+                    <span class="news-date">Jan 2024</span>: [News item]
+                </div>
+                <div class="news-item">
+                    <span class="news-date">Dec 2023</span>: [News item]
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h2>Selected Publications</h2>
+                <div class="publication">
+                    <img src="/api/placeholder/120/80" alt="Paper thumbnail" class="pub-thumbnail">
+                    <div>
+                        <h3>[Paper Title]</h3>
+                        <p>[Authors]</p>
+                        <p><em>[Conference/Journal, Year]</em></p>
+                        <div class="pub-buttons">
+                            <a href="#" class="button">ABSTRACT</a>
+                            <a href="#" class="button">BIB</a>
+                            <a href="#" class="button">PAPER</a>
+                            <a href="#" class="button">CODE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="publications" class="section">
+        <div class="page-header">
+            <h1>Publications</h1>
+        </div>
+        
+        <div class="content-wrapper">
+            <div class="content-box">
+                <div class="publication">
+                    <img src="/api/placeholder/120/80" alt="Paper thumbnail" class="pub-thumbnail">
+                    <div>
+                        <h3>[Paper Title]</h3>
+                        <p>[Authors]</p>
+                        <p><em>[Conference/Journal, Year]</em></p>
+                        <div class="pub-buttons">
+                            <a href="#" class="button">ABSTRACT</a>
+                            <a href="#" class="button">BIB</a>
+                            <a href="#" class="button">PAPER</a>
+                            <a href="#" class="button">CODE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="cv" class="section">
         <div class="content-box">
-            <h2>Download CV</h2>
-            <a href="your-cv.pdf" class="cv-download" target="_blank" aria-label="Download CV">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cv-icon">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                    <path d="M14 2v6h6"></path>
-                    <path d="M16 13H8"></path>
-                    <path d="M16 17H8"></path>
-                    <path d="M10 9H8"></path>
-                </svg>
-                Download CV
-            </a>
+            <div class="cv-header" style="display: flex; align-items: center; justify-content: space-between;">
+                <h1>CV</h1>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 10px;">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <path d="M14 2v6h6"></path>
+                        <path d="M16 13H8"></path>
+                        <path d="M16 17H8"></path>
+                        <path d="M10 9H8"></path>
+                    </svg>
+                    <a href="your-cv.pdf" class="cv-download" target="_blank" aria-label="Download CV">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cv-icon">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <path d="M14 2v6h6"></path>
+                        <path d="M16 13H8"></path>
+                        <path d="M16 17H8"></path>
+                        <path d="M10 9H8"></path>
+                        <path d="M12 0c6.627 0 12 5.373 12 12s-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0z"/>
+                    </svg>
+                </a>
+            </div>
         </div>
 
-        <div class="content-box">
-            <h2>Education</h2>
-            <p>Details about education go here.</p>
+        <div class="content-wrapper">
+            <div class="content-box">
+                <h2>Education</h2>
+                <div class="education-item">
+                    <span class="year-tag">2021-PRESENT</span>
+                    <div>
+                        <strong>PhD*</strong>
+                        <p>[University Name]</p>
+                    </div>
+                </div>
+                <div class="education-item">
+                    <span class="year-tag">2020</span>
+                    <div>
+                        <strong>Master of Technology in [Field]</strong>
+                        <p>[University Name]</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h2>Experience</h2>
+                <div class="experience-item">
+                    <span class="year-tag">DEC 2024-PRESENT</span>
+                    <div>
+                        <strong>Research Intern</strong>
+                        <p>[Company], [Location]</p>
+                    </div>
+                </div>
+                <div class="experience-item">
+                    <span class="year-tag">MAY-DEC 2024</span>
+                    <div>
+                        <strong>Research Intern</strong>
+                        <p>[Company], [Location]</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h2>Awards & Honors</h2>
+                <div class="experience-item">
+                    <span class="year-tag">2024</span>
+                    <div>
+                        <strong>Best Paper Award</strong>
+                        <p>[Conference Name]</p>
+                    </div>
+                </div>
+                <div class="experience-item">
+                    <span class="year-tag">2023</span>
+                    <div>
+                        <strong>Outstanding Graduate Research Award</strong>
+                        <p>[University Name]</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
         function showSection(sectionId) {
+            // Hide all sections
             document.querySelectorAll('.section').forEach(section => {
-                section.style.display = 'none';
+                section.classList.remove('active');
             });
-            document.getElementById(sectionId).style.display = 'block';
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update navigation active state
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update URL without page reload
+            history.pushState(null, '', `#${sectionId}`);
         }
 
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
+            const button = document.querySelector('nav button');
+            button.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
         }
+
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            document.querySelector('nav button').textContent = '☀️';
+        }
+
+        // Handle browser back/forward buttons
+        window.addEventListener('popstate', () => {
+            const hash = window.location.hash.slice(1) || 'about';
+            showSection(hash);
+        });
+
+        // Show correct section on page load and set active nav link
+        const initialSection = window.location.hash.slice(1) || 'about';
+        showSection(initialSection);
+        
+        // Set initial active state
+        document.querySelector(`nav a[onclick*="${initialSection}"]`).classList.add('active');
     </script>
 </body>
 </html>
