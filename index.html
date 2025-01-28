@@ -71,6 +71,8 @@
             grid-template-columns: 3fr 1fr;
             gap: 2rem;
             margin-bottom: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .profile-image {
@@ -145,6 +147,8 @@
 
         .section {
             display: none;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .section.active {
@@ -163,7 +167,7 @@
         }
 
         .page-header {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -172,7 +176,7 @@
         }
 
         .content-wrapper {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
@@ -269,31 +273,29 @@
         </div>
 
         <div class="about-content">
-            <div class="content-wrapper">
-                <div class="content-box">
-                    <h2>News</h2>
-                    <div class="news-item">
-                        <span class="news-date">Jan 2024</span>: [News item]
-                    </div>
-                    <div class="news-item">
-                        <span class="news-date">Dec 2023</span>: [News item]
-                    </div>
+            <div class="content-box">
+                <h2>News</h2>
+                <div class="news-item">
+                    <span class="news-date">Jan 2024</span>: [News item]
                 </div>
+                <div class="news-item">
+                    <span class="news-date">Dec 2023</span>: [News item]
+                </div>
+            </div>
 
-                <div class="content-box">
-                    <h2>Selected Publications</h2>
-                    <div class="publication">
-                        <img src="/api/placeholder/120/80" alt="Paper thumbnail" class="pub-thumbnail">
-                        <div>
-                            <h3>[Paper Title]</h3>
-                            <p>[Authors]</p>
-                            <p><em>[Conference/Journal, Year]</em></p>
-                            <div class="pub-buttons">
-                                <a href="#" class="button">ABSTRACT</a>
-                                <a href="#" class="button">BIB</a>
-                                <a href="#" class="button">PAPER</a>
-                                <a href="#" class="button">CODE</a>
-                            </div>
+            <div class="content-box">
+                <h2>Selected Publications</h2>
+                <div class="publication">
+                    <img src="/api/placeholder/120/80" alt="Paper thumbnail" class="pub-thumbnail">
+                    <div>
+                        <h3>[Paper Title]</h3>
+                        <p>[Authors]</p>
+                        <p><em>[Conference/Journal, Year]</em></p>
+                        <div class="pub-buttons">
+                            <a href="#" class="button">ABSTRACT</a>
+                            <a href="#" class="button">BIB</a>
+                            <a href="#" class="button">PAPER</a>
+                            <a href="#" class="button">CODE</a>
                         </div>
                     </div>
                 </div>
