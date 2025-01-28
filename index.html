@@ -44,7 +44,13 @@
         }
 
         nav a:hover,
-        nav a.active {
+        nav a.active,
+        nav a[onclick*="cv"]:hover,
+        nav a[onclick*="cv"].active {
+            color: var(--primary-color);
+        }
+
+        body.dark-mode nav a[onclick*="cv"].active {
             color: var(--primary-color);
         }
 
@@ -167,12 +173,20 @@
         }
 
         .page-header {
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .cv-download {
+            position: absolute;
+            right: -60px;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
         .content-wrapper {
