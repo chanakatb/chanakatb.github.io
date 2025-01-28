@@ -41,21 +41,24 @@
             text-decoration: none;
             color: var(--text-color);
             cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        nav a.active {
+            color: var(--primary-color) !important;
         }
 
         body.dark-mode nav a {
             color: #ffffff;
         }
 
-        nav a:hover,
-        nav a.active,
-        nav a[onclick*="cv"]:hover,
-        nav a[onclick*="cv"].active {
-            color: var(--primary-color);
-        }
-
-        body.dark-mode nav a[onclick*="cv"].active {
-            color: var(--primary-color);
+        body.dark-mode nav a:hover,
+        body.dark-mode nav a.active {
+            color: var(--primary-color) !important;
         }
 
         nav button {
@@ -474,10 +477,12 @@
             showSection(hash);
         });
 
-        // Show correct section on page load
-        if (window.location.hash) {
-            showSection(window.location.hash.slice(1));
-        }
+        // Show correct section on page load and set active nav link
+        const initialSection = window.location.hash.slice(1) || 'about';
+        showSection(initialSection);
+        
+        // Set initial active state
+        document.querySelector(`nav a[onclick*="${initialSection}"]`).classList.add('active');
     </script>
 </body>
 </html>
