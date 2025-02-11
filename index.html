@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chanaka Bandara</title>
+    <style>       
+        :root {
+            --primary-color: #50c21b;
+            --text-color: #333;
+            --link-color: #50c21b;
+            --border-color: #e0e0e0;
+            --tag-color: #8BC34A;
+        }
+
+        body.dark-mode {
+            --primary-color: #1a73e8;
+            --link-color: #1a73e8;
+            --tag-color: #1a73e8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Calibri, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        nav {
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        nav a.active {
+            color: var(--primary-color) !important;
+        }
+
+        body.dark-mode nav a {
+            color: #ffffff;
+        }
+
+        body.dark-mode nav a:hover,
+        body.dark-mode nav a.active {
+            color: var(--primary-color) !important;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            color: var(--text-color);
+        }
+
+        .profile-section {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .profile-image {
+            max-width: 300px;
+            border-radius: 50%;
+            aspect-ratio: 1;
+            object-fit: cover;
+        }
+
+        .news-item {
+            margin: 1rem 0;
+        }
+
+        .news-date {
+            font-weight: bold;
+            color: #666;
+        }
+
+        .publication {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 1rem;
+            margin-bottom: 0;
+        }
+
+        .pub-thumbnail {
+            width: 120px;
+            height: 80px;
+            object-fit: cover;
+        }
+
+        .pub-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .button {
+            padding: 0.25rem 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        .education-item, 
+        .experience-item {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 2rem;
+            margin-bottom: 0.75rem;
+            align-items: start;
+            position: relative;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .education-item:last-child,
+        .experience-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .year-tag {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--tag-color);
+            color: white;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            width: fit-content;
+            min-width: 120px;
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .section {
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .profile-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .education-item,
+            .experience-item {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .page-header {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .cv-download {
+            position: absolute;
+            right: -60px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .cv-download-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--tag-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--tag-color);
+            transition: all 0.2s;
+        }
+        
+        body.dark-mode .cv-download-icon {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .content-box {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            max-width: 800px;
+            margin: 0 auto 1rem auto;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        #publications .content-box {           
+            padding: 0.3rem 0.5rem;
+            margin-bottom: 0.5rem;
+            max-width: 1200px;
+            margin: 0 auto 0.5rem auto;
+        }
+
+        #about .content-box {
+            margin-left: 0;
+            margin-right: auto;
+        }
+
+        .dark-mode .content-box {
+            background: #1e1e1e;
+            box-shadow: none;
+            border: 1px solid #404040;
+        }
+
+        .cv-download {
+            color: var(--tag-color);
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f0f9f0;
+        }
+
+        .cv-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .cv-download:hover {
+            background-color: #e3f5e3;
+            text-decoration: none;
+        }
+        
+        body.dark-mode .cv-download {
+            background-color: #2a2a2a;
+        }
+        
+        body.dark-mode .cv-download:hover {
+            background-color: #353535;
+        }
+
+        .content-box h2 {
+            margin-top: 0;
+        }
+        
+        body.dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        body.dark-mode h2 {
+            color: #ffffff;
+        }
+
+        body.dark-mode .news-date {
+            color: #ffffff;
+        }
+
+        body.dark-mode .button {
+            color: #ffffff;
+            border-color: #404040;
+        }
+
+        body.dark-mode nav {
+            border-bottom-color: #404040;
+        }
+
+        body.dark-mode .education-item,
+        body.dark-mode .experience-item {
+            border-bottom-color: #404040;
+        }
+
+        .footer {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        body.dark-mode .social-icons a {
+            color: #ffffff;
+        }
+
+        body.dark-mode .footer {
+            border-top-color: #404040;
+        }
+
+        .copyright {
+            color: #666;
+        }
+
+        body.dark-mode .copyright {
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a onclick="showSection('about')" class="nav-link active">About</a>
+        <a onclick="showSection('publications')" class="nav-link">Publications</a>
+        <a onclick="showSection('portfolio')" class="nav-link">Portfolio</a>
+        <button onclick="toggleDarkMode()" aria-label="Toggle dark mode">🌙</button>
+    </nav>
+
+    <!-- About Section -->
+    <div id="about" class="section active">
+        <h1 style="margin-bottom: 0.1rem;">Chanaka Bandara</h1>
+        <p style="margin-bottom: 2rem; font-size: 1.0rem;"><strong>Ph.D. Student at the University of Delaware</strong></p>
+    
+        <div class="profile-section">
+            <div>
+                <p style="margin-bottom: 1rem; font-size: 1.1rem; text-align: justify;">I am a Ph.D. student in the Center for Autonomous and Robotics Systems (ICARS) at the <a href="https://www.udel.edu/" target="_blank">University of Delaware</a>. 
+                I am advised by <a href="https://research.me.udel.edu/~btanner/">Dr. Bert Tanner</a>.</p>
+    
+                <p style="margin-bottom: 0.5rem; font-size: 1.1rem; text-align: justify;">
+                    I work at the intersection of Computer Vision, State Estimation, and Swarm Robotics, with my research spanning three main areas:
+                    <ol style="margin-top: 0.5rem; margin-bottom: 0.5rem; padding-left: 3rem;">
+                        <li style="margin-bottom: 0.5rem;  text-align: justify;">Computer Vision & Active Learning: Developing novel active learning frameworks that combine self-supervised learning with advanced clustering techniques, achieving state-of-the-art performance in image segmentation tasks with limited annotated data.</li>
+                        <li style="margin-bottom: 0.5rem;  text-align: justify;">Underwater Robotics & State Estimation: Creating robust hybrid state estimators for autonomous underwater vehicles that integrate dynamic and kinematic models, with successful validation on <a href="https://www.independentrobotics.com/aqua2" target="_blank">Aqua2 AUV </a> in challenging underwater environments.</li>
+                        <li style="margin-bottom: 0.5rem;  text-align: justify;">Swarm Robotics & Control: Developing coordination strategies for marine surface vehicles through navigation functions and designing sensor networks with cooperative Kalman filtering to enable robust formation control and environmental monitoring using <a href="https://www.jaia.tech/" target="_blank">Jaiabot micro-AUVs</a>.</li>
+                    </ol>
+                </p>    
+                <p style="font-size: 1.1rem; text-align: justify;">Prior to joining UD, I received my Bachelor's degree in Mechanical Engineering from the <a href="https://www.pdn.ac.lk/" target="_blank">University of Peradeniya</a>, Sri Lanka. 
+                    At UoP, I worked with <a href="https://eng.pdn.ac.lk/ME/People/FacultyProfiles.php?id=6" target="_blank">Dr. Sanjeeva Maithripala</a>, <a href="https://eng.pdn.ac.lk/ME/People/FacultyProfiles.php?id=5" target="_blank">Dr. Asanga Ratnaweera</a>, <a href="https://eng.pdn.ac.lk/ME/People/FacultyProfiles.php?id=4" target="_blank">Dr. Prasanna Gunawardane</a>, and <a href="https://web2.ee.pdn.ac.lk/MaheshiD" target="_blank">Dr. Maheshi Dissanayake</a>. </p>
+            </div>
+            <img src="images/profile.jpg" alt="Profile Photo" class="profile-image">
+        </div>
+        <!--
+        <div class="about-content">
+            <div class="content-box">
+                <h2>News</h2>
+                <div class="news-item">
+                    <span class="news-date">Jan 2024</span>: [News item]
+                </div>
+                <div class="news-item">
+                    <span class="news-date">Dec 2023</span>: [News item]
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h2>Selected Publications</h2>
+                <div class="publication">
+                    <img src="/api/placeholder/120/80" alt="Paper thumbnail" class="pub-thumbnail">
+                    <div>
+                        <h3>[Paper Title]</h3>
+                        <p>[Authors]</p>
+                        <p><em>[Conference/Journal, Year]</em></p>
+                        <div class="pub-buttons">
+                            <a href="#" class="button">ABSTRACT</a>
+                            <a href="#" class="button">BIB</a>
+                            <a href="#" class="button">PAPER</a>
+                            <a href="#" class="button">CODE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        -->
+    </div>
+
+    <!-- Publications Section -->
+    <div id="publications" class="section">        
+        <div class="content-wrapper">           
+            <!-- publication 9: C5 -->            
+            <div class="content-box">
+                <div class="publication">
+                    <img src="images/image_c5.jpg" alt="Paper thumbnail" class="pub-thumbnail">
+                    <div>
+                        <h3 style="text-align: justify;"> Autonomous Surface Vehicle Swarms with Bifurcationdriven Multi-behavioral Dynamics</h3>
+                        <p>Kleio Baxevani, <b>Chanaka Thushitha Bandara</b>, Herbert G. Tanner</p>
+                        <p><em>International Conference on Robotics and Automation (ICRA), Atlanta, GA, USA, 2025 [under review]</em></p>
+                       
+                        <!-- <div class="pub-buttons">
+                            <a href="#" class="button">ABSTRACT</a> 
+                            <a href="#" class="button">BIB</a> 
+                            <a href="#" class="button">PAPER</a> 
+                            <a href="#" class="button">CODE</a>
+                        </div>                         -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- publication 8: C4 -->            
+            <div class="content-box">
+                <div class="publication">
+                    <img src="images/image_c4.jpg" alt="Paper thumbnail" class="pub-thumbnail">
+                    <div>
+                        <h3 style="text-align: justify;"> Partial System Identification and Sensor Fusion with the Jaiabot Micro Autonomous Underwater Vehicle</h3>
+                        <p>Herbert G. Tanner, <b>Chanaka Thushitha Bandara</b>, Matthew C. Gyves</p>
+                        <p><em>32nd Mediterranean Conference on Control and Automation, Chania, Crete, Greece, 2024 </em></p>
+                       
+                        <div class="pub-buttons">
+                            <!-- <a href="#" class="button">ABSTRACT</a> -->
+                            <!-- <a href="#" class="button">BIB</a> -->
+                            <a href="https://ieeexplore.ieee.org/abstract/document/10566133" class="button">PAPER</a>
+                            <!-- <a href="#" class="button">CODE</a> -->
+                        </div>  
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- publication 7: C3 -->            
+            <div class="content-box">
+                <div class="publication">
+                    <img src="images/image_c3.jpg" alt="Paper thumbnail" class="pub-thumbnail">
+                    <div>
+                        <h3 style="text-align: justify;"> Hybrid Visual Inertial Odometry for Robust Underwater Estimation</h3>
+                        <p>Bharat Joshi, <b>Chanaka Thushitha Bandara</b>, Ioannis Poulakakis, Herbert G. Tanner, Ioannis Rekleitis</p>
+                        <p><em>OCEANS 2023 - MTS/IEEE U.S. Gulf Coast, Biloxi, MS, USA, 2023 </em></p>
+                       
+                        <div class="pub-buttons">
+                            <!-- <a href="#" class="button">ABSTRACT</a> -->
+                            <!-- <a href="#" class="button">BIB</a> -->
+                            <a href="https://ieeexplore.ieee.org/abstract/document/10336994" class="button">PAPER</a>
+                            <!-- <a href="#" class="button">CODE</a> -->
+                        </div>  
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- publication 6: J4 -->            
+            <div class="content-box">
+                <div class="publication">
+                    <img src="images/image_j4.jpg" alt="Paper thumbnail" class="pub-thumbnail">
+                    <div>
+                        <h3 style="text-align: justify;"> Sylvester matrix-based similarity estimation method for automation of defect detection in textile fabrics</h3>
+                        <p>Lakmali Nadeesha Kumari, <b>Chanaka Thushitha Bandara</b>, Maheshi B. Dissanayake</p>
+                        <p><em>Journal of Sensors, vol. 2021, 2021 </em></p>
+                       
+                        <div class="pub-buttons">
+                            <!-- <a href="#" class="button">ABSTRACT</a> -->
+                            <!-- <a href="#" class="button">BIB</a> -->
+                            <a href="https://onlinelibrary.wiley.com/doi/full/10.1155/2021/6625421" class="button">PAPER</a>
+                            <!-- <a href="#" class="button">CODE</a> -->
+                        </div>  
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- publication 5: J3 -->            
+            <div class="content-box">
+                <div class="publication">
+                    <img src="images/image_j3.jpg" alt="Paper thumbnail" class="pub-thumbnail">
+                    <div>
+                        <h3 style="text-align: justify;"> Hydrodynamic analysis of a novel wave energy converter: Hull ReservoirWave Energy Converter (HRWEC)</h3>
+                        <p>Prasanna Gunawardane, <b>Chanaka Thushitha Bandara</b>, Young-Ho Lee</p>
+                        <p><em>Renewable Energy, vol. 170, 2021 </em></p>
+                       
+                        <div class="pub-buttons">
+                            <!-- <a href="#" class="button">ABSTRACT</a> -->
+                            <!-- <a href="#" class="button">BIB</a> -->
+                            <a href="https://www.sciencedirect.com/science/article/abs/pii/S0960148121001531" class="button">PAPER</a>
+                            <!-- <a href="#" class="button">CODE</a> -->
+                        </div>  
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- publication 4: J2 -->            
+            <div class="content-box">
+                <div class="publication">
+                    <img src="images/image_j2.jpg" alt="Paper thumbnail" class="pub-thumbnail">
+                    <div>
+                        <h3 style="text-align: justify;"> Vehicle-Fixed-Frame Adaptive Controller and Intrinsic Nonlinear PID Controller for Attitude Stabilization of a Complex-Shaped Underwater Vehicle</h3>
+                        <p><b>Chanaka Thushitha Bandara</b>, Lakmali Nadeesha Kumari, Sanjeeva Maithripala, Asanga Ratnanweera</p>
+                        <p><em>Journal of Mechatronics and Robotics, vol. 4, 2020</em></p>
+                       
+                        <div class="pub-buttons">
+                            <!-- <a href="#" class="button">ABSTRACT</a> -->
+                            <!-- <a href="#" class="button">BIB</a> -->
+                            <a href="https://thescipub.com/abstract/jmrsp.2020.254.264" class="button">PAPER</a>
+                            <!-- <a href="#" class="button">CODE</a> -->
+                        </div>  
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- publication 3: J1 -->            
+            <div class="content-box">
+                <div class="publication">
+                    <img src="images/image_j1.jpg" alt="Paper thumbnail" class="pub-thumbnail">
+                    <div>
+                        <h3 style="text-align: justify;"> Modeling and Control Approach for a Complex-Shaped Underwater Vehicle</h3>
+                        <p><b>Chanaka Thushitha Bandara</b>, Asanga Ratnaweera, Sanjeeva Maithripala</p>
+                        <p><em>American Journal of Mechanical Engineering, vol. 7, 2019</em></p>
+                       
+                        <div class="pub-buttons">
+                            <!-- <a href="#" class="button">ABSTRACT</a> -->
+                            <!-- <a href="#" class="button">BIB</a> -->
+                            <a href="https://pubs.sciepub.com/ajme/7/4/2/" class="button">PAPER</a>
+                            <!-- <a href="#" class="button">CODE</a> -->
+                        </div>  
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- publication 2: C2 -->            
+            <div class="content-box">
+                <div class="publication">
+                    <img src="images/image_c2.jpg" alt="Paper thumbnail" class="pub-thumbnail">
+                    <div>
+                        <h3 style="text-align: justify;"> Performance Comparison and Validation of Controllers for an Inverted Pendulum System</h3>
+                        <p><b>Chanaka Thushitha Bandara</b>, Pamoda Herath, Ruwan Laksiri, Asanga Ratnaweera</p>
+                        <p><em>14th Conference on Industrial and Information Systems (ICIIS), Kandy, Sri Lanka, 2019.</em></p>
+                       
+                        <div class="pub-buttons">
+                            <!-- <a href="#" class="button">ABSTRACT</a> -->
+                            <!-- <a href="#" class="button">BIB</a> -->
+                            <a href="https://ieeexplore.ieee.org/abstract/document/9063279" class="button">PAPER</a>
+                            <!-- <a href="#" class="button">CODE</a> -->
+                        </div>  
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- publication 1 -->            
+            <div class="content-box">
+                <div class="publication">
+                    <img src="images/image_c1.jpg" alt="Paper thumbnail" class="pub-thumbnail">
+                    <div>
+                        <h3 style="text-align: justify;"> Hydrodynamic Modelling and Adaptive Controlling for a Complex-Shaped Underwater Vehicle</h3>
+                        <p><b>Chanaka Thushitha Bandara</b>, Asanga Ratnaweera, Sanjeeva Maithripala,</p>
+                        <p><em>14th Conference on Industrial and Information Systems (ICIIS), Kandy, Sri Lanka, 2019.</em></p>
+                       
+                        <div class="pub-buttons">
+                            <!-- <a href="#" class="button">ABSTRACT</a> -->
+                            <!-- <a href="#" class="button">BIB</a> -->
+                            <a href="https://ieeexplore.ieee.org/document/9063334" class="button">PAPER</a>
+                            <!-- <a href="#" class="button">CODE</a> -->
+                        </div>  
+                        
+                    </div>
+                </div>
+            </div>          
+                        
+        </div>
+    </div>
+    
+    <!-- Portfolio Section -->
+   
+    <div id="portfolio" class="section">
+        <!-- CV -->
+        <!--
+        <div class="content-box">
+            <div class="cv-header" style="display: flex; align-items: center; justify-content: space-between; position: relative;">
+                <h2>CV</h2>
+                 <a href="documents/cv.pdf" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); text-decoration: none;">
+                    <div class="cv-download-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <path d="M14 2v6h6"></path>
+                            <path d="M16 13H8"></path>
+                            <path d="M16 17H8"></path>
+                            <path d="M10 9H8"></path>
+                        </svg>
+                    </div>
+                </a>
+            </div>
+        </div>
+        -->
+
+        <!-- Education -->
+        <div class="content-wrapper">
+                <div class="content-box">
+                    <h2>Education</h2>
+                    <div class="education-item">
+                        <span class="year-tag">2021 - 2026</span>
+                        <div>
+                            <strong>Ph.D.*</strong>
+                            <p>University of Delaware</p>
+                        </div>
+                    </div>
+                    <div class="education-item">
+                        <span class="year-tag">2025</span>
+                        <div>
+                            <strong>Master of Science in Robotics (MSR)</strong>
+                            <p>University of Delaware</p>
+                        </div>
+                    </div>
+                    <div class="education-item">
+                        <span class="year-tag">2017</span>
+                        <div>
+                            <strong>B.Sc. in Mechanical Engineering</strong>
+                            <p>University of Peradeniya</p>
+                        </div>
+                    </div>
+                    
+                </div>                    
+        </div>       
+               
+        <!-- Experience -->
+        <div class="content-box">
+                    <h2>Experience</h2>
+                    <div class="experience-item">
+                        <span class="year-tag">AUG 2022 - PRESENT</span>
+                        <div>
+                            <strong>Graduate Research Assistant</strong>
+                            <p>University of Delaware</p>
+                        </div>
+                    </div>
+                    <div class="experience-item">
+                        <span class="year-tag">AUG 2021 - JULY 2022</span>
+                        <div>
+                            <strong>Graduate Teaching Assistant</strong>
+                            <p>University of Delaware</p>
+                        </div>
+                    </div>
+                    <div class="experience-item">
+                        <span class="year-tag">Nov 2017 - AUG 2021</span>
+                        <div>
+                            <strong>Teaching Assistant Professor</strong>
+                            <p>University of Peradeniya, Sri Lanka</p>
+                        </div>
+                    </div>
+        </div>
+            
+        <!-- Awards & Honors -->
+        <div class="content-box">
+                    <h2>Awards & Honors</h2>
+                    <div class="experience-item">
+                        <span class="year-tag">2021</span>
+                        <div>
+                            <strong>The President’s Award for Scientific Research</strong>
+                            <p>National Research Council, Sri Lanka</p>
+                        </div>
+                    </div>
+                    <div class="experience-item">
+                        <span class="year-tag">2017</span>
+                        <div>
+                            <strong>Channa Lalith Maddumage Prize for the Best Performance in Mechanical Engineering</strong>
+                            <p>University of Peradeniya, Sri Lanka</p>
+                        </div>
+                    </div>
+                    <div class="experience-item">
+                        <span class="year-tag">2017</span>
+                        <div>
+                            <strong>Full Colors, Sri Lanka University Colours Awarding Ceremony</strong>
+                            <p>Sri Lanka Universities Sports Association</p>
+                        </div>
+                    </div>
+    
+                    <div class="experience-item">
+                        <span class="year-tag">2016 - 2017</span>
+                        <div>
+                            <strong>Full Colors, Colors Awarding Ceremony</strong>
+                            <p>University of Peradeniya, Sri Lanka</p>
+                        </div>
+                    </div>
+                    <div class="experience-item">
+                        <span class="year-tag">2012</span>
+                        <div>
+                            <strong>Mahapola Merit Scholarship for Performance in GCE Advanced Level Examination</strong>
+                            <p>Sri Lanka</p>
+                        </div>
+                    </div>   
+        </div>      
+         
+        <!-- Example of a new content box -->
+        <!--
+        <div class="content-box">
+            <h2>Your Section Title</h2>
+            <div class="experience-item">
+                <span class="year-tag">2024</span>
+                <div>
+                    <strong>Item Title</strong>
+                    <p>Description or details</p>
+                </div>
+            </div>
+            <div class="experience-item">
+                <span class="year-tag">2023</span>
+                <div>
+                    <strong>Another Item</strong>
+                    <p>More details about this item</p>
+                </div>
+            </div>
+        </div>
+        -->   
+    </div>
+     
+        
+   
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update navigation active state
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('onclick').includes(sectionId)) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Update URL without page reload
+            history.pushState(null, '', `#${sectionId}`);
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const button = document.querySelector('nav button');
+            button.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+
+        // Function to set initial state
+        function setInitialState() {
+            const hash = window.location.hash.slice(1) || 'about';
+            showSection(hash);
+            
+            // Explicitly set active class on the correct nav link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('onclick').includes(hash)) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            document.querySelector('nav button').textContent = '☀️';
+        }
+
+        // Handle browser back/forward buttons
+        window.addEventListener('popstate', () => {
+            const hash = window.location.hash.slice(1) || 'about';
+            showSection(hash);
+        });
+
+        // Call setInitialState when the page loads
+        document.addEventListener('DOMContentLoaded', setInitialState);
+        
+        // Also call it immediately in case the script runs after DOM is already loaded
+        setInitialState();
+    </script>
+    <div class="footer">
+        <div class="social-icons">
+            <a href="mailto: chanaka@udel.edu" title="Email">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            </a>
+            <a href="https://github.com/chanakatb" target="_blank" title="GitHub">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+            </a>
+            <a href="https://linkedin.com/in/chanakatb" target="_blank" title="LinkedIn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            </a>
+            <a href="https://twitter.com/chanakatb" target="_blank" title="Twitter">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+            </a>
+        </div>
+        <div class="copyright">
+            © 2025 Chanaka Bandara. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>
+               
